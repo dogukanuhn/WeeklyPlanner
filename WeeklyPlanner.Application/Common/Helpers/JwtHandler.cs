@@ -19,7 +19,7 @@ namespace WeeklyPlanner.Application.Common.Helpers
         {
             _appSettings = appSettings.Value;
         }
-        public (string email, string token)? Authenticate(User user)
+        public string Authenticate(User user)
         {
             // Token oluşturmak için önce JwtSecurityTokenHandler sınıfından instance alıyorum.
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -46,7 +46,7 @@ namespace WeeklyPlanner.Application.Common.Helpers
             string generatedToken = tokenHandler.WriteToken(token);
 
             //Sonuçlarımızı tuple olarak dönüyoruz.
-            return (user.Email, generatedToken);
+            return generatedToken;
         }
     }
 }

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace WeeklyPlanner.Domain.Models
 {
-    public class User
+    public class User : BaseModel
     {
-        public Guid Id { get; set; }
+
         public string FirstName { get; set; }
         public string Surname { get; set; }
+        public string Company { get; set; }
+
         public string Email { get; set; }
     
 

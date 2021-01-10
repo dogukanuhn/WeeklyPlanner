@@ -24,9 +24,17 @@ namespace WeeklyPlanner.Infrastructure
                 .GetSection(nameof(MongoDbSettings) + ":" + MongoDbSettings.DatabaseValue).Value;
         });
 
-        services.AddScoped<IUserRepository, UserRepository>();
-       
-        services.AddScoped(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
+            services.AddStackExchangeRedisCache(action =>
+            {
+                action.Configuration = "localhost:6379,DefaultDatabase=1";
+            });
+
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRedisHandler, RedisHandler>();
+
+
+            services.AddScoped(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
 
 
         return services;

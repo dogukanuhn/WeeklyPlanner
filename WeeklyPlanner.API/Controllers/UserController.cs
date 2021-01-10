@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WeeklyPlanner.API.Models;
 using WeeklyPlanner.Application.Users.Commands;
 using WeeklyPlanner.Application.Users.Queries;
 
@@ -34,11 +35,16 @@ namespace WeeklyPlanner.API.Controllers
             try
             {
                 var user = await _mediator.Send(command);
-
                 if (!user)
-                    return BadRequest("Some informations are missing or wrong");
+                    return BadRequest(new RegisterResponse {
+                    Error ="Missing information",
+                    HasError =true
+                    });
 
-                return Ok("User Created Succesfully");
+                return Ok(new RegisterResponse
+                {
+                    HasError = false
+                    });
             }
             catch (Exception exception)
             {
@@ -49,19 +55,51 @@ namespace WeeklyPlanner.API.Controllers
 
         }
 
-
         [HttpPost("login")]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticateUserQuery query)
+        public async Task<IActionResult> Login([FromBody] LoginUserQuery query)
         {
-
-
             try
             {
-                var user = await _mediator.Send(query);
-                if (user == null)
-                    return BadRequest("Username or password incorrect!");
+                var codeGuid = await _mediator.Send(query);
+                if (codeGuid == Guid.Empty)
+                    return BadRequest(new LoginResponseModel
+                    {
+                        Error = "User not Found",
+                        HasError = true
+                    });
 
-                return Ok(new { Email = user.Value.email, Token = user.Value.token });
+
+
+                return Ok(new LoginResponseModel
+                {
+                    HasError = false,
+                    AccessGuid = codeGuid
+
+                });
+
+            }
+            catch (Exception exception)
+            {
+
+                return BadRequest($"User Login Error : {exception.Message}");
+
+            }
+
+        }
+
+        [HttpPost("Authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] AuthenticateUserQuery query)
+        {
+            try
+            {
+                var token = await _mediator.Send(query);
+                if (token == null)
+                    return Ok();
+
+                return Ok(new AuthenticateResponse
+                {
+                 Token= token
+                });
 
             }
             catch (Exception exception)

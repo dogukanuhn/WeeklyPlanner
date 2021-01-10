@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 
 namespace WeeklyPlanner.Application.Users.Queries
 {
-    public class AuthenticateUserQuery : IRequest<string>
+    public class LoginUserQuery : IRequest<Guid>
     {
-        public string AccessCode { get; set; }
         public string Email { get; set; }
-
-        public Guid AccessGuid { get; set; }
-
-
 
     }
 }
