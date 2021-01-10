@@ -1,12 +1,14 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
-using NETCore.MailKit.Core;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyPlanner.Application.Common.Interfaces;
+using WeeklyPlanner.Application.Models;
 
 namespace WeeklyPlanner.Application.Services
 {

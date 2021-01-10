@@ -7,6 +7,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyPlanner.Domain.Common;
+using WeeklyPlanner.Domain.Models;
 
 namespace WeeklyPlanner.Application.Common.Helpers
 {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyPlanner.Domain.Common;
 
 namespace WeeklyPlanner.Application.Common.Helpers
 {

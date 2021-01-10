@@ -1,8 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyPlanner.Application.Common.Interfaces;
+using WeeklyPlanner.Domain.Repositories;
+using WeeklyPlanner.Infrastructure.Repositories;
 
 namespace WeeklyPlanner.Infrastructure
 {
@@ -20,7 +26,6 @@ namespace WeeklyPlanner.Infrastructure
 
         services.AddScoped<IUserRepository, UserRepository>();
        
-        services.AddScoped<ICardRepository, CardRepository>();
         services.AddScoped(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
 
 

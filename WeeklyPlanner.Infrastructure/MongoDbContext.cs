@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyPlanner.Application.Common.Interfaces;
 
 namespace WeeklyPlanner.Infrastructure
 {
@@ -12,19 +13,19 @@ namespace WeeklyPlanner.Infrastructure
     {
         protected readonly IMongoCollection<T> Collection;
         private readonly MongoDbSettings settings;
-        private IMongoDatabase _db { get; set; }
+        private IMongoDatabase Db { get; set; }
         public MongoDbContext(IOptions<MongoDbSettings> options)
         {
             this.settings = options.Value;
             var client = new MongoClient(this.settings.ConnectionString);
-            _db = client.GetDatabase(this.settings.Database);
+            Db = client.GetDatabase(this.settings.Database);
         }
 
 
 
         public IMongoCollection<T> GetCollection()
         {
-            return _db.GetCollection<T>(typeof(T).Name.ToLowerInvariant());
+            return Db.GetCollection<T>(typeof(T).Name.ToLowerInvariant());
         }
     }
 }

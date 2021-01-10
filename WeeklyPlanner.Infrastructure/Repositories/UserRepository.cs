@@ -2,8 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using WeeklyPlanner.Application.Common.Interfaces;
+using WeeklyPlanner.Domain.Models;
+using WeeklyPlanner.Domain.Repositories;
 
 namespace WeeklyPlanner.Infrastructure.Repositories
 {
@@ -25,6 +30,11 @@ namespace WeeklyPlanner.Infrastructure.Repositories
             return entity;
         }
 
-        
+        public async Task<User> GetAsync(Expression<Func<User, bool>> predicate)
+        {
+
+            return await _collection.Find(predicate).FirstOrDefaultAsync();
+        }
+
     }
 }
