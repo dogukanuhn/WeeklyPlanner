@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyPlanner.Domain", "WeeklyPlanner.Domain\WeeklyPlanner.Domain.csproj", "{F42443BE-0C35-4CCA-924A-105F37751B81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyPlanner.Domain", "WeeklyPlanner.Domain\WeeklyPlanner.Domain.csproj", "{F42443BE-0C35-4CCA-924A-105F37751B81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyPlanner.Application", "WeeklyPlanner.Application\WeeklyPlanner.Application.csproj", "{ADBAD854-6663-4904-AD00-485A9DF32389}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyPlanner.Application", "WeeklyPlanner.Application\WeeklyPlanner.Application.csproj", "{ADBAD854-6663-4904-AD00-485A9DF32389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyPlanner.Infrastructure", "WeeklyPlanner.Infrastructure\WeeklyPlanner.Infrastructure.csproj", "{910F5BE8-2A34-44EF-B87A-B52039C27A01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyPlanner.Infrastructure", "WeeklyPlanner.Infrastructure\WeeklyPlanner.Infrastructure.csproj", "{910F5BE8-2A34-44EF-B87A-B52039C27A01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyPlanner.API", "WeeklyPlanner.API\WeeklyPlanner.API.csproj", "{100D94F7-AA36-499D-B07F-052A69D5B2C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyPlanner.API", "WeeklyPlanner.API\WeeklyPlanner.API.csproj", "{100D94F7-AA36-499D-B07F-052A69D5B2C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B8874C30-6F20-41BA-B42D-9E7ACCC14921}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserRepositoryTest", "UserRepositoryTest\UserRepositoryTest.csproj", "{00EC3557-7F54-4F95-9D23-B46B5BADA24C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{100D94F7-AA36-499D-B07F-052A69D5B2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{100D94F7-AA36-499D-B07F-052A69D5B2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{100D94F7-AA36-499D-B07F-052A69D5B2C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00EC3557-7F54-4F95-9D23-B46B5BADA24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00EC3557-7F54-4F95-9D23-B46B5BADA24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00EC3557-7F54-4F95-9D23-B46B5BADA24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00EC3557-7F54-4F95-9D23-B46B5BADA24C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{00EC3557-7F54-4F95-9D23-B46B5BADA24C} = {B8874C30-6F20-41BA-B42D-9E7ACCC14921}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D818DE5-738F-4468-9740-EA02F10304B5}

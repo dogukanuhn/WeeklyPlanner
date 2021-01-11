@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WeeklyPlanner.Application.Common.Helpers;
 using WeeklyPlanner.Domain.Models;
 using WeeklyPlanner.Domain.Repositories;
 
@@ -17,8 +18,15 @@ namespace WeeklyPlanner.Application.Users.Commands
         {
             _userRepository = userRepository;
         }
+
+
         public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+
+            var isValidMail = EmailVerify.EmailIsValid(request.Email);
+
+            if (!isValidMail) return false;
+
             var user = new User
             {
                 Email = request.Email,
@@ -27,6 +35,7 @@ namespace WeeklyPlanner.Application.Users.Commands
             };
 
             var result = await _userRepository.AddAsync(user, cancellationToken);
+
             if (result == null)
                 return false;
 

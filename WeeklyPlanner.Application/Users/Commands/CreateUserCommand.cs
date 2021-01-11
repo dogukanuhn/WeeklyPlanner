@@ -15,6 +15,5 @@ namespace WeeklyPlanner.Application.Users.Commands
         public string Role { get; set; }
 
 
-
     }
 }

@@ -29,6 +29,7 @@ namespace WeeklyPlanner.Infrastructure
                 action.Configuration = "localhost:6379,DefaultDatabase=1";
             });
 
+            services.AddScoped<IDashboardRepository, DashboardRepository>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRedisHandler, RedisHandler>();
