@@ -34,5 +34,9 @@ namespace WeeklyPlanner.Infrastructure.Repositories
 
             return await _collection.Find(predicate).FirstOrDefaultAsync();
         }
+        public  async Task<Dashboard> UpdateAsync(Dashboard entity, Expression<Func<Dashboard, bool>> predicate)
+        {
+            return await _collection.FindOneAndReplaceAsync(predicate, entity);
+        }
     }
 }

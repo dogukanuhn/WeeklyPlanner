@@ -10,10 +10,22 @@ namespace WeeklyPlanner.Domain.Models
 {
     public class BaseModel
     {
+        public BaseModel()
+        {
+            if (Id == ObjectId.Empty)
+                Id = ObjectId.GenerateNewId();
+
+            if (Created == null)
+            {
+                Created = DateTime.Now;
+            }
+
+            LastModified = DateTime.Now;
+        }
 
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonId]
-        public string Id { get; set; }
+        public ObjectId Id { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]

@@ -13,6 +13,6 @@ namespace WeeklyPlanner.Domain.Repositories
     {
         Task<Dashboard> GetAsync(Expression<Func<Dashboard, bool>> predicate);
         Task<Dashboard> AddAsync(Dashboard entity, CancellationToken token);
-
+        Task<Dashboard> UpdateAsync(Dashboard entity, Expression<Func<Dashboard, bool>> predicate);
     }
 }
