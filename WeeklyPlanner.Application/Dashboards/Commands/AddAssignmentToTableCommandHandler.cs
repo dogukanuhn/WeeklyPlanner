@@ -37,7 +37,14 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
             Assignment data = table.Assignments.SingleOrDefault(x => x.Order == requstData.Order);
 
             if (data != null) {
-                data.Order++;
+
+                foreach (var item in table.Assignments)
+                {
+                    if(item.Order >= request.Assignment.Order)
+                    {
+                        item.Order++;
+                    }
+                }
             }
             table.Assignments.Add(requstData);
 
