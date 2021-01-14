@@ -14,7 +14,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         public string TableName { get; set; }
         public string CompanyName { get; set; }
 
-        public AssignmentDTO Assignment { get; set; }
+        public Assignment Assignment { get; set; }
 
     }
 

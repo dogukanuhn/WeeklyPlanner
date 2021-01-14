@@ -23,9 +23,7 @@ namespace WeeklyPlanner.Application.Users.Commands
         public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
 
-            var isValidMail = EmailVerify.EmailIsValid(request.Email);
-
-            if (!isValidMail) return false;
+          
 
             var user = new User
             {
@@ -37,7 +35,7 @@ namespace WeeklyPlanner.Application.Users.Commands
             var result = await _userRepository.AddAsync(user, cancellationToken);
 
             if (result == null)
-                return false;
+                throw new ArgumentNullException();
 
             return true;
         }

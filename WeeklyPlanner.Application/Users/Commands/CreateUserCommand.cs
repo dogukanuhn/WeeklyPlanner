@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyPlanner.Domain.Models;
 
 namespace WeeklyPlanner.Application.Users.Commands
 {
@@ -11,8 +12,9 @@ namespace WeeklyPlanner.Application.Users.Commands
     {
         public string FirstName { get; set; }
         public string Surname { get; set; }
+        public string Company { get; set; }
         public string Email { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
 
 
     }

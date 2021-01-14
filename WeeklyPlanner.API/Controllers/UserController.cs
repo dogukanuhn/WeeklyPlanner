@@ -36,7 +36,8 @@ namespace WeeklyPlanner.API.Controllers
             {
                 var user = await _mediator.Send(command);
                 if (!user)
-                    return BadRequest(new RegisterResponse {
+                    return BadRequest(new ErrorResponse
+                    {
                     Error ="Missing information",
                     HasError =true
                     });
@@ -62,7 +63,7 @@ namespace WeeklyPlanner.API.Controllers
             {
                 var codeGuid = await _mediator.Send(query);
                 if (codeGuid == Guid.Empty)
-                    return BadRequest(new LoginResponseModel
+                    return BadRequest(new ErrorResponse
                     {
                         Error = "User not Found",
                         HasError = true
@@ -94,7 +95,12 @@ namespace WeeklyPlanner.API.Controllers
             {
                 var token = await _mediator.Send(query);
                 if (token == null)
-                    return Ok();
+                    return BadRequest(new ErrorResponse
+                    {
+                        Error="Error",
+                        HasError =true
+                    });
+
 
                 return Ok(new AuthenticateResponse
                 {
