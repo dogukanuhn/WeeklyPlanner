@@ -24,7 +24,7 @@ namespace WeeklyPlanner.API.Controllers
             _mediator = mediator;
         }
 
-       
+
 
         //// GET api/<DashboardController>/5
         //[HttpGet("{id}")]
@@ -42,7 +42,7 @@ namespace WeeklyPlanner.API.Controllers
                 var result = await _mediator.Send(command);
                 if (result == null)
                 {
-                    return BadRequest(new DashboardResponse { 
+                    return BadRequest(new ErrorResponse { 
                     HasError=true,
                     Error="Create Dashboard Failed"
                     });
@@ -71,7 +71,7 @@ namespace WeeklyPlanner.API.Controllers
                 var result = await _mediator.Send(command);
                 if (result == null)
                 {
-                    return BadRequest(new AddAssignmentResponse
+                    return BadRequest(new ErrorResponse
                     {
                         HasError = true,
                         Error = "Add Assignment to Dashboard Failed"

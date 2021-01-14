@@ -12,7 +12,7 @@ namespace WeeklyPlanner.Application.Validators.Dashboards
     {
         public CreateDashboardCommandValidator()
         {
-            RuleFor(x => x.CompanyName).NotNull().NotEmpty();
+        
             RuleFor(x => x.Tables).NotNull();
         }
     }

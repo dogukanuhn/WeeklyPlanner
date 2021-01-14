@@ -17,14 +17,29 @@ namespace WeeklyPlanner.Application.Common.Helpers
         {
             _httpContextAccessor = httpContextAccessor;
             Email = GetUserMail();
+            Company = GetUserCompany();
+            UserId = GetUserId();
+
         }
 
 
         public string Email { get; set; }
+        public string Company { get; set; }
+        public string UserId { get; set; }
 
         public string GetUserMail()
         {
-            return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+            return _httpContextAccessor.HttpContext.User.FindFirst(JwtClaims.Email).Value;
+        }
+
+        public string GetUserCompany()
+        {
+            return _httpContextAccessor.HttpContext.User.FindFirst(JwtClaims.Company).Value;
+        }
+
+        public string GetUserId()
+        {
+            return _httpContextAccessor.HttpContext.User.FindFirst(JwtClaims.UserId).Value;
         }
 
 

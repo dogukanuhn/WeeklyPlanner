@@ -12,7 +12,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     public class AddAssignmentToTableCommand : IRequest<Dashboard>
     {
         public string TableName { get; set; }
-        public string CompanyName { get; set; }
+
 
         public Assignment Assignment { get; set; }
 

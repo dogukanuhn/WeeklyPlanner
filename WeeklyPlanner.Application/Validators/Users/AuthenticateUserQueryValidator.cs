@@ -14,8 +14,8 @@ namespace WeeklyPlanner.Application.Validators.Users
         public AuthenticateUserQueryValidator()
         {
             RuleFor(x => x.Email).NotEmpty().Must(EmailVerify.EmailIsValid);
-            RuleFor(x => x.AccessGuid).NotNull().NotEmpty().NotEqual(Guid.Empty);
-            RuleFor(x => x.AccessCode).NotNull().NotEmpty().Length(6);
+            RuleFor(x => x.AccessGuid).NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(x => x.AccessCode).NotEmpty().Length(6);
 
         }
     }

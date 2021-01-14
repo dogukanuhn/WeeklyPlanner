@@ -12,7 +12,7 @@ namespace WeeklyPlanner.Application.Validators
     {
         public CreateAssignmentCommandValidator()
         {
-            RuleFor(x => x.CompanyName).NotEmpty().NotNull();
+          
             RuleFor(x => x.TableName).NotEmpty().NotNull();
             RuleFor(x => x.Assignment).NotNull();
 
