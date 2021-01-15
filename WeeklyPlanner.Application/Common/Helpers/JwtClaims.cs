@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace WeeklyPlanner.Application.Common.Helpers
 {
-    public class JwtClaims
+    public class JwtClaims 
     {
+        public JwtClaims(string claim)
+        {
+            Claim = claim;
+        }
+        public string Claim { get; set; }
 
+        public override string ToString() => Claim;
 
-        public static string Email { get; set; } = "Email";
-        public static string UserId { get; set; } = "UserId";
-        public static string Company { get; set; } = "Company";
+        public static JwtClaims Email => new JwtClaims(nameof(Email));
+        public static JwtClaims UserId => new JwtClaims(nameof(UserId));
+        public static JwtClaims Company => new JwtClaims(nameof(Company));
     }
 }

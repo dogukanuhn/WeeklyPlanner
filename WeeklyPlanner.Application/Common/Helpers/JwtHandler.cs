@@ -32,9 +32,9 @@ namespace WeeklyPlanner.Application.Common.Helpers
                 Subject = new ClaimsIdentity(new[]
                 {
                     //İstersek string bir property istersek ClaimsTypes sınıfının sabitlerinden çağırabiliriz.
-                    new Claim(JwtClaims.UserId, user.Id.ToString()),
-                    new Claim(JwtClaims.Company, user.Company),
-                    new Claim(JwtClaims.Email,user.Email)
+                    new Claim(JwtClaims.UserId.ToString(), user.Id.ToString()),
+                    new Claim(JwtClaims.Company.ToString(), user.Company),
+                    new Claim(JwtClaims.Email.ToString(),user.Email)
                 }),
                 //Tokenın hangi tarihe kadar geçerli olacağını ayarlıyoruz.
                 Expires = DateTime.UtcNow.AddMinutes(2),

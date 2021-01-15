@@ -20,12 +20,11 @@ namespace WeeklyPlanner.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ILogger<UserController> _logger;
 
-        public UserController(IMediator mediator, ILogger<UserController> logger)
+
+        public UserController(IMediator mediator)
         {
             _mediator = mediator;
-            _logger = logger;
         }
 
 

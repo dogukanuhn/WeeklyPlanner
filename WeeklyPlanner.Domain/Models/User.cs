@@ -18,12 +18,24 @@ namespace WeeklyPlanner.Domain.Models
 
 
     }
-
-    public enum Role
+    
+    public class Role 
     {
-        Project_Manager,
-        Software_Developer,
-        Content_Manager,
-        CTO
+        public Role(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; private set; }
+
+        public override string ToString() => Name;
+
+        public Role ProjectManager => new Role(nameof(ProjectManager));
+        public Role SoftwareEnginner => new Role(nameof(SoftwareEnginner));
+        public Role CTO => new Role(nameof(CTO));
+        public Role ContentManager => new Role(nameof(ContentManager));
+
+
     }
+
 }
