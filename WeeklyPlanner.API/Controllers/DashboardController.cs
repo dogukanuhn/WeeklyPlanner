@@ -35,7 +35,7 @@ namespace WeeklyPlanner.API.Controllers
 
         // POST api/<DashboardController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateDashboardCommand command)
+        public async Task<IActionResult> CreateDashboard([FromBody] CreateDashboardCommand command)
         {
             try
             {
@@ -61,7 +61,36 @@ namespace WeeklyPlanner.API.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [HttpPut("UpdateTableOrder")]
+        public async Task<IActionResult> UpdateTableOrder([FromBody] UpdateTableOrderCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+
+                if (!result)
+                {
+                    return BadRequest(new ErrorResponse
+                    {
+                        HasError = true,
+                        Error = "Fail to update table order"
+                    });
+                }
+                return Ok(new AddAssignmentResponse
+                {
+                    HasError = false,
+        
+
+                });
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpPost("AddAssignment")]
         public async Task<IActionResult> AddAssignment(AddAssignmentToTableCommand command)
         {

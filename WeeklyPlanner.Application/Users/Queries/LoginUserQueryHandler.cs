@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using WeeklyPlanner.Application.Common.Interfaces;
@@ -29,11 +30,21 @@ namespace WeeklyPlanner.Application.Users.Queries
             if (user == null)
                 return Guid.Empty;
 
+            if (await _redisHandler.GetFromCache($"LoginCodes:{request.Email}") != null)
+                return Guid.Empty;
+
             var codeGuid = Guid.NewGuid();
 
             Random rnd = new Random();
             var code = rnd.Next(100000, 1000000);
-            await _redisHandler.AddToCache($"LoginCodes:{codeGuid}", TimeSpan.FromMinutes(2), code.ToString());
+
+            var temp = new
+            {
+                code = code.ToString(),
+                accessGuid = codeGuid
+
+            }; 
+            await _redisHandler.AddToCache($"LoginCodes:{request.Email}", TimeSpan.FromMinutes(2), JsonSerializer.Serialize(temp));
 
             return codeGuid;
         }

@@ -43,13 +43,18 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
 
                 foreach (var item in table.Assignments)
                 {
-                    if(item.Order >= request.Assignment.Order)
-                    {
+                    if (item.Order <= request.Assignment.Order && item.Order != 0)
+                        item.Order--;
+                    
+                    if (item.Order >= request.Assignment.Order)
                         item.Order++;
-                    }
+                    
                 }
+                
             }
+            table.Assignments.Remove(data);
             table.Assignments.Add(requstData);
+            
 
             table.Assignments.OrderBy(x => x.Order);
 

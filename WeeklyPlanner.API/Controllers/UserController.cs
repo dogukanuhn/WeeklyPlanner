@@ -55,21 +55,18 @@ namespace WeeklyPlanner.API.Controllers
 
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserQuery query)
+        [HttpGet("login")]
+        public async Task<IActionResult> Login([FromQuery] LoginUserQuery query)
         {
             try
             {
                 var codeGuid = await _mediator.Send(query);
                 if (codeGuid == Guid.Empty)
-                    return BadRequest(new ErrorResponse
+                    return Unauthorized(new ErrorResponse
                     {
                         Error = "User not Found",
                         HasError = true
                     });
-
-
-
                 return Ok(new LoginResponseModel
                 {
                     HasError = false,

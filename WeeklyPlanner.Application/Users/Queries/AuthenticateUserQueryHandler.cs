@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using WeeklyPlanner.Application.Common.Interfaces;
@@ -28,17 +29,27 @@ namespace WeeklyPlanner.Application.Users.Queries
 
         public async Task<string> Handle(AuthenticateUserQuery request, CancellationToken cancellationToken)
         {
-            var data = await _redisHandler.GetFromCache($"LoginCodes:{request.AccessGuid}");
+            var raw = await _redisHandler.GetFromCache($"LoginCodes:{request.Email}");
+         
 
-            if (data == null)
+            if (raw == null)
                 return null;
 
-            if (data != request.AccessCode)
+             var data = JsonSerializer.Deserialize<RedisData>(raw);
+
+            if (Guid.Parse(data.accessGuid) != request.AccessGuid || data.code != request.AccessCode)
                 return null;
 
             var user = await _userRepository.GetAsync(x => x.Email == request.Email);
 
             return _jwtHandler.Authenticate(user);
         }
+    }
+
+    public class RedisData
+    {
+        public string code { get; set; }
+        public string accessGuid { get; set; }
+
     }
 }
