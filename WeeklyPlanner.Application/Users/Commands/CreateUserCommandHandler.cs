@@ -29,7 +29,8 @@ namespace WeeklyPlanner.Application.Users.Commands
             {
                 Email = request.Email,
                 FirstName = request.FirstName,
-                Surname = request.Surname
+                Surname = request.Surname,
+                Company = request.Company
             };
 
             var result = await _userRepository.AddAsync(user, cancellationToken);
