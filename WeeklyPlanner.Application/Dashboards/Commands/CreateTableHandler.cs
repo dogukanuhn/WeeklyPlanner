@@ -25,7 +25,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         {
             var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == request.Company);
 
-            var newTable = new Table { TableName = request.TableName,Order = dashboard.Tables.Count };
+            var newTable = new Table { TableName = request.TableName };
             dashboard.Tables.Add(newTable);
 
 

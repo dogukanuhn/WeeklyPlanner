@@ -13,11 +13,11 @@ namespace WeeklyPlanner.Domain.Models
             CompanyName = cName;
             Tables = new List<Table>();
 
-            foreach (var (item, index) in tables.Select((value, i) => (value, i)))
+            foreach (var item in tables)
             {
                 var table = new Table
                 {
-                    Order = index,
+      
                     TableName = item,
                 };
                 Tables.Add(table);

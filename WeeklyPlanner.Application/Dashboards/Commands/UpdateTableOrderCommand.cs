@@ -11,7 +11,9 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     {
         public string TableName { get; set; }
         public string Company { get; set; }
-        public int Order { get; set; }
+        public int OldIndex { get; set; }
+        public int NewIndex { get; set; }
+
 
     }
 }

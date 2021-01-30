@@ -130,6 +130,7 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
+                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
                 var result = await _mediator.Send(command);
 
                 if (!result)
