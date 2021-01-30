@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeeklyPlanner.API.Models;
+using WeeklyPlanner.API.Responses;
+using WeeklyPlanner.Application.Common.Helpers;
 using WeeklyPlanner.Application.Dashboards.Commands;
+using WeeklyPlanner.Application.Dashboards.Queries;
 using WeeklyPlanner.Domain.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,12 +28,41 @@ namespace WeeklyPlanner.API.Controllers
 
 
 
-        //// GET api/<DashboardController>/5
-        //[HttpGet("{id}")]
-        //public async Task<DashboardTableDTO> Get()
-        //{
-        //    return "value";
-        //}
+        // GET api/<DashboardController>/5
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var command = new GetDashboardByCompanyCommand();
+                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+
+                var result = await _mediator.Send(command);
+
+                if (result == null)
+                {
+                    return BadRequest(new ErrorResponse
+                    {
+                        HasError = true,
+                        Error = "Dasboard Not Found"
+                    });
+                }
+
+                return Ok(new DashboardResponse
+                {
+                    HasError = false,
+
+                    Tables = result.Tables
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
 
         // POST api/<DashboardController>
         [HttpPost]
@@ -39,6 +70,8 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
+                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+
                 var result = await _mediator.Send(command);
                 if (result == null)
                 {
@@ -52,6 +85,37 @@ namespace WeeklyPlanner.API.Controllers
                     HasError = false,
 
                     Tables = result.Tables
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+            
+        [HttpPost("createtable")]
+        public async Task<IActionResult> CreateTable([FromBody] CreateTableCommand command)
+        {
+            try
+            {
+                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+
+                var result = await _mediator.Send(command);
+                if (result == null)
+                {
+                    return BadRequest(new ErrorResponse
+                    {
+                        HasError = true,
+                        Error = "Table cannot created"
+                    });
+                }
+
+                return Ok(new AddTableResponse
+                {
+                    HasError = false,
+                    Table = result
                 });
             }
             catch (Exception)
@@ -95,6 +159,8 @@ namespace WeeklyPlanner.API.Controllers
         public async Task<IActionResult> AddAssignment(AddAssignmentToTableCommand command)
         {
 
+            command.UserId = HttpContext.User.FindFirst(JwtClaims.UserId.ToString()).Value;
+            command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
             try
             {
                 var result = await _mediator.Send(command);

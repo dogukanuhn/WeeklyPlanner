@@ -13,6 +13,8 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     {
         public string TableName { get; set; }
 
+        public string UserId { get; set; }
+        public string Company { get; set; }
 
         public Assignment Assignment { get; set; }
 

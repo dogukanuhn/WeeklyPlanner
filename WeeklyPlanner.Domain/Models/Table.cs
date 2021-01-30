@@ -8,6 +8,8 @@ namespace WeeklyPlanner.Domain.Models
         {
             Assignments = new List<Assignment>();
         }
+
+        
         public string TableName { get; set; }
         public int Order { get; set; }
         public List<Assignment> Assignments { get; set; }

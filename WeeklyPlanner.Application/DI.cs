@@ -26,7 +26,7 @@ namespace WeeklyPlanner.Application
 
             services.AddSingleton<IEmailService, EmailService>();
 
-            services.AddScoped<IApplicationUser, ApplicationUser>();
+          
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 

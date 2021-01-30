@@ -15,17 +15,17 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     public class CreateDashboardCommandHandler : IRequestHandler<CreateDashboardCommand, Dashboard>
     {
         private readonly IDashboardRepository _dashboardRepository;
-        private readonly IApplicationUser _applicationUser;
+      
 
-        public CreateDashboardCommandHandler(IDashboardRepository dashboardRepository, IApplicationUser applicationUser)
+        public CreateDashboardCommandHandler(IDashboardRepository dashboardRepository)
         {
             _dashboardRepository = dashboardRepository;
-            _applicationUser = applicationUser;
+           
         }
         public async Task<Dashboard> Handle(CreateDashboardCommand request, CancellationToken cancellationToken)
         {
             
-            var createdDashboard = new Dashboard(_applicationUser.Company, request.Tables);
+            var createdDashboard = new Dashboard(request.Company, request.Tables);
 
             var result = await _dashboardRepository.AddAsync(createdDashboard, cancellationToken);
 

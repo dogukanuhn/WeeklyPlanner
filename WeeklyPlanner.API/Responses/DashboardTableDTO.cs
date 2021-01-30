@@ -1,4 +1,4 @@
-﻿namespace WeeklyPlanner.API.Models
+﻿namespace WeeklyPlanner.API.Responses
 {
     public class DashboardTableDTO : BaseResponse
     {

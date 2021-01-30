@@ -16,7 +16,6 @@ namespace WeeklyPlanner.Application.Users.Queries
     {
         private readonly IRedisHandler _redisHandler;
         private readonly IUserRepository _userRepository;
-
         private readonly IJwtHandler _jwtHandler;
 
         public AuthenticateUserQueryHandler(IJwtHandler jwtHandler, IRedisHandler redisHandler, IUserRepository userRepository)

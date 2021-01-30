@@ -8,9 +8,9 @@ using WeeklyPlanner.Domain.Models;
 
 namespace WeeklyPlanner.Application.Dashboards.Commands
 {
-    public class CreateDashboardCommand : IRequest<Dashboard>
+    public class CreateTableCommand : IRequest<Table>
     {
+        public string TableName { get; set; }
         public string Company { get; set; }
-        public List<string> Tables { get; set; }
     }
 }

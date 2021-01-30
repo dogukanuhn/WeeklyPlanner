@@ -14,11 +14,11 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     public class AddAssignmentToTableCommandHandler : IRequestHandler<AddAssignmentToTableCommand, Dashboard>
     {
         private readonly IDashboardRepository _dashboardRepository;
-        private readonly IApplicationUser _applicationUser;
-        public AddAssignmentToTableCommandHandler(IDashboardRepository dashboardRepository, IApplicationUser applicationUser)
+    
+        public AddAssignmentToTableCommandHandler(IDashboardRepository dashboardRepository)
         {
             _dashboardRepository = dashboardRepository;
-            _applicationUser = applicationUser;
+         
         }
         public async Task<Dashboard> Handle(AddAssignmentToTableCommand request, CancellationToken cancellationToken)
         {
@@ -31,10 +31,10 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
                 Priority = request.Assignment.Priority,
                 EndDate = request.Assignment.EndDate,
                 Order = request.Assignment.Order,
-                ModifiedBy = _applicationUser.UserId
+                ModifiedBy = request.UserId
             };
 
-            var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == _applicationUser.Company);
+            var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == request.Company);
 
             Table table = dashboard.Tables.Single(x => x.TableName == request.TableName);
             Assignment data = table.Assignments.SingleOrDefault(x => x.Order == requstData.Order);
@@ -58,7 +58,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
 
             table.Assignments.OrderBy(x => x.Order);
 
-            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.CompanyName == _applicationUser.Company);
+            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.CompanyName == request.Company);
 
             return dashboard;
         }

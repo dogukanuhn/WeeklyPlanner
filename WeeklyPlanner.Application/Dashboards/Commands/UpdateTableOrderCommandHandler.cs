@@ -13,18 +13,18 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     public class UpdateTableOrderCommandHandler : IRequestHandler<UpdateTableOrderCommand, bool>
     {
         private readonly IDashboardRepository _dashboardRepository;
-        private readonly IApplicationUser _applicationUser;
 
 
 
-        public UpdateTableOrderCommandHandler(IDashboardRepository dashboardRepository, IApplicationUser applicationUser)
+
+        public UpdateTableOrderCommandHandler(IDashboardRepository dashboardRepository)
         {
             _dashboardRepository = dashboardRepository;
-            _applicationUser = applicationUser;
+        
         }
         public async Task<bool> Handle(UpdateTableOrderCommand request, CancellationToken cancellationToken)
         {
-            var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == _applicationUser.Company);
+            var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == request.Company);
            
 
             foreach (var item in dashboard.Tables)
@@ -34,7 +34,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
 
             }
 
-            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.CompanyName == _applicationUser.Company);
+            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.CompanyName == request.Company);
 
             if (result == null) return false;
             return true;

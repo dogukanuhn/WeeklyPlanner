@@ -10,6 +10,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     public class UpdateTableOrderCommand : IRequest<bool>
     {
         public string TableName { get; set; }
+        public string Company { get; set; }
         public int Order { get; set; }
 
     }
