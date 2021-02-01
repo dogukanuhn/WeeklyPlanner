@@ -19,7 +19,7 @@ namespace WeeklyPlanner.Domain.Models
         public string Content { get; set; }
         public int Priority { get; set; }
         public bool IsCompleted { get; set; }
-        public int Order { get; set; }
+
         public List<NotifyUser> Notify { get; set; }
         [BsonRepresentation(BsonType.DateTime)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]

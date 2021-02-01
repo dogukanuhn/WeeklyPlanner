@@ -17,6 +17,8 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         public string Company { get; set; }
 
         public Assignment Assignment { get; set; }
+        public int NewIndex { get; set; }
+
 
     }
 

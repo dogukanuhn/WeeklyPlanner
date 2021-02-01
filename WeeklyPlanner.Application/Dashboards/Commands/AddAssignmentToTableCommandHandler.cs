@@ -22,45 +22,33 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         }
         public async Task<Dashboard> Handle(AddAssignmentToTableCommand request, CancellationToken cancellationToken)
         {
-            var requstData = new Assignment
-            {
-                Content = request.Assignment.Content,
-                IsCompleted = request.Assignment.IsCompleted,
-                Title = request.Assignment.Title,
-                Notify = request.Assignment.Notify,
-                Priority = request.Assignment.Priority,
-                EndDate = request.Assignment.EndDate,
-                Order = request.Assignment.Order,
-                ModifiedBy = request.UserId
-            };
 
             var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == request.Company);
 
             Table table = dashboard.Tables.Single(x => x.TableName == request.TableName);
-            Assignment data = table.Assignments.SingleOrDefault(x => x.Order == requstData.Order);
+            int oldIndex = table.Assignments.FindIndex(x=> x.Title == request.Assignment.Title);
 
-            if (data != null) {
+            if (oldIndex != -1)
+            {
 
-                foreach (var item in table.Assignments)
-                {
-                    if (item.Order <= request.Assignment.Order && item.Order != 0)
-                        item.Order--;
-                    
-                    if (item.Order >= request.Assignment.Order)
-                        item.Order++;
-                    
-                }
-                
+                Assignment item = table.Assignments[oldIndex];
+                table.Assignments.RemoveAt(oldIndex);
+                table.Assignments.Insert(request.NewIndex, item);
+
+
             }
-            table.Assignments.Remove(data);
-            table.Assignments.Add(requstData);
-            
+            else
+            {
+                table.Assignments.Remove(request.Assignment);
+                table.Assignments.Add(request.Assignment);
+            }
 
-            table.Assignments.OrderBy(x => x.Order);
+
+
 
             var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.CompanyName == request.Company);
 
-            return dashboard;
+            return result;
         }
     }
 }
