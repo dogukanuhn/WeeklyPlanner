@@ -12,7 +12,7 @@ using WeeklyPlanner.Domain.Repositories;
 
 namespace WeeklyPlanner.Application.Users.Queries
 {
-    public class AuthenticateUserQueryHandler : IRequestHandler<AuthenticateUserQuery, string>
+    public class AuthenticateUserQueryHandler : IRequestHandler<AuthenticateUserQuery, Response>
     {
         private readonly IRedisHandler _redisHandler;
         private readonly IUserRepository _userRepository;
@@ -26,7 +26,7 @@ namespace WeeklyPlanner.Application.Users.Queries
             _userRepository = userRepository;
         }
 
-        public async Task<string> Handle(AuthenticateUserQuery request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(AuthenticateUserQuery request, CancellationToken cancellationToken)
         {
             var raw = await _redisHandler.GetFromCache($"LoginCodes:{request.Email}");
          
@@ -40,9 +40,21 @@ namespace WeeklyPlanner.Application.Users.Queries
                 return null;
 
             var user = await _userRepository.GetAsync(x => x.Email == request.Email);
+            Response response = new Response
+            {
+                Token = _jwtHandler.Authenticate(user),
+                Status = string.IsNullOrEmpty(user.CompanyDomain) ? 0 : 1
+            };
 
-            return _jwtHandler.Authenticate(user);
+            return response;
         }
+    }
+
+    public class Response
+    {
+        public string Token { get; set; }
+        public int Status { get; set; }
+
     }
 
     public class RedisData

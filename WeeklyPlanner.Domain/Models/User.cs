@@ -11,7 +11,7 @@ namespace WeeklyPlanner.Domain.Models
 
         public string FirstName { get; set; }
         public string Surname { get; set; }
-        public string Company { get; set; }
+        public string CompanyDomain { get; set; }
         public string Email { get; set; }
         public Role Role { get; set; }
 

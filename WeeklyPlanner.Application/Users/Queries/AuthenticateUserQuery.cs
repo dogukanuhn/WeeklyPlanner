@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WeeklyPlanner.Application.Users.Queries
 {
-    public class AuthenticateUserQuery : IRequest<string>
+    public class AuthenticateUserQuery : IRequest<Response>
     {
         public string AccessCode { get; set; }
         public string Email { get; set; }

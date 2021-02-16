@@ -33,11 +33,11 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
-                var user = await _mediator.Send(command);
-                if (!user)
+                var result = await _mediator.Send(command);
+                if (result != 1)
                     return BadRequest(new ErrorResponse
                     {
-                    Error ="Missing information",
+                    Error ="Girilen E-Posta Kullanımda ve ya Şirket Hesabı bulunmakta(Davetiye linki ile panele erişim sağlayabilirsiniz.).",
                     HasError =true
                     });
 
@@ -89,8 +89,8 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
-                var token = await _mediator.Send(query);
-                if (token == null)
+                var response = await _mediator.Send(query);
+                if (response == null)
                     return BadRequest(new ErrorResponse
                     {
                         Error="Error",
@@ -100,7 +100,8 @@ namespace WeeklyPlanner.API.Controllers
 
                 return Ok(new AuthenticateResponse
                 {
-                 Token= token
+                 Token= response.Token,
+                 Status= response.Status
                 });
 
             }
@@ -112,5 +113,35 @@ namespace WeeklyPlanner.API.Controllers
             }
 
         }
+
+        //[AllowAnonymous]
+        //[HttpPost("HandleInvite")]
+        //public async Task<IActionResult> HandleInvite([FromBody] RegisterUserToCompanyCommand query)
+        //{
+        //    try
+        //    {
+        //        //var result = await _mediator.Send(query);
+        //        //if (token == null)
+        //        //    return BadRequest(new ErrorResponse
+        //        //    {
+        //        //        Error = "Error",
+        //        //        HasError = true
+        //        //    });
+
+
+        //        //return Ok(new AuthenticateResponse
+        //        //{
+        //        //    Token = token
+        //        //});
+
+        //    }
+        //    catch (Exception exception)
+        //    {
+
+        //        return BadRequest($"User Login Error : {exception.Message}");
+
+        //    }
+
+        //}
     }
 }

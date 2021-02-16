@@ -10,6 +10,6 @@ namespace WeeklyPlanner.Application.Dashboards.Queries
 {
     public class GetDashboardByCompanyCommand : IRequest<Dashboard>
     {
-        public string Company { get; set; }
+        public string CompanyDomain { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace WeeklyPlanner.API.Controllers
             try
             {
                 var command = new GetDashboardByCompanyCommand();
-                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+                command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
 
                 var result = await _mediator.Send(command);
 
@@ -70,7 +70,7 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
-                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+                command.Company.Domain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
 
                 var result = await _mediator.Send(command);
                 if (result == null)
@@ -95,12 +95,12 @@ namespace WeeklyPlanner.API.Controllers
         }
 
             
-        [HttpPost("createtable")]
+        [HttpPost("createTable")]
         public async Task<IActionResult> CreateTable([FromBody] CreateTableCommand command)
         {
             try
             {
-                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+                command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
 
                 var result = await _mediator.Send(command);
                 if (result == null)
@@ -130,7 +130,7 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
-                command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+                command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
                 var result = await _mediator.Send(command);
 
                 if (!result)
@@ -156,12 +156,41 @@ namespace WeeklyPlanner.API.Controllers
             }
         }
 
+        //[HttpPost("SendInvite")]
+        //public async Task<IActionResult> SendInvite([FromBody] SendInviteCommand command)
+        //{
+        //    try
+        //    {
+        //        var result = await _mediator.Send(command);
+
+        //        if (!result)
+        //        {
+        //            return BadRequest(new ErrorResponse
+        //            {
+        //                HasError = true,
+        //                Error = "Error while sending messages to users"
+        //            });
+        //        }
+        //        return Ok(new BaseResponse
+        //        {
+        //            HasError = false,
+
+        //        });
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
         [HttpPost("AddAssignment")]
         public async Task<IActionResult> AddAssignment(AddAssignmentToTableCommand command)
         {
 
             command.UserId = HttpContext.User.FindFirst(JwtClaims.UserId.ToString()).Value;
-            command.Company = HttpContext.User.FindFirst(JwtClaims.Company.ToString()).Value;
+            command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
             try
             {
                 var result = await _mediator.Send(command);

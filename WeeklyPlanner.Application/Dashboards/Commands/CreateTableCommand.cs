@@ -11,6 +11,8 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
     public class CreateTableCommand : IRequest<Table>
     {
         public string TableName { get; set; }
-        public string Company { get; set; }
+        public string Team { get; set; }
+
+        public string CompanyDomain { get; set; }
     }
 }

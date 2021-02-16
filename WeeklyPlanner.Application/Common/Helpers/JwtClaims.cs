@@ -18,6 +18,6 @@ namespace WeeklyPlanner.Application.Common.Helpers
 
         public static JwtClaims Email => new JwtClaims(nameof(Email));
         public static JwtClaims UserId => new JwtClaims(nameof(UserId));
-        public static JwtClaims Company => new JwtClaims(nameof(Company));
+        public static JwtClaims CompanyDomain => new JwtClaims(nameof(CompanyDomain));
     }
 }

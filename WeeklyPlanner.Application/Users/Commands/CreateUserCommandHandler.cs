@@ -11,7 +11,7 @@ using WeeklyPlanner.Domain.Repositories;
 
 namespace WeeklyPlanner.Application.Users.Commands
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
         private readonly IUserRepository _userRepository;
         public CreateUserCommandHandler(IUserRepository userRepository)
@@ -20,17 +20,22 @@ namespace WeeklyPlanner.Application.Users.Commands
         }
 
 
-        public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
 
-          
+            var domainName = request.Email.Split("@")[1];
+            var isUserExist = await _userRepository.GetAsync(x => x.Email == request.Email || x.CompanyDomain == domainName);
 
+            if(isUserExist != null)
+                return 0;
+            
             var user = new User
             {
                 Email = request.Email,
                 FirstName = request.FirstName,
                 Surname = request.Surname,
-                Company = request.Company
+                CompanyDomain= domainName,
+                Role=new Role(request.Role)
             };
 
             var result = await _userRepository.AddAsync(user, cancellationToken);
@@ -38,7 +43,8 @@ namespace WeeklyPlanner.Application.Users.Commands
             if (result == null)
                 throw new ArgumentNullException();
 
-            return true;
+            return 1;
+
         }
     }
 }

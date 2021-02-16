@@ -22,7 +22,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         }
         public async Task<bool> Handle(UpdateTableOrderCommand request, CancellationToken cancellationToken)
         {
-            var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == request.Company);
+            var dashboard = await _dashboardRepository.GetAsync(x => x.Company.Domain== request.CompanyDomain);
 
 
             
@@ -32,7 +32,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
 
 
          
-            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.CompanyName == request.Company);
+            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.Company.Domain == request.CompanyDomain);
 
             if (result == null) return false;
             return true;

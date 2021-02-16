@@ -23,13 +23,13 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         }
         public async Task<Table> Handle(CreateTableCommand request, CancellationToken cancellationToken)
         {
-            var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == request.Company);
+            var dashboard = await _dashboardRepository.GetAsync(x => x.Company.Domain == request.CompanyDomain);
 
             var newTable = new Table { TableName = request.TableName };
             dashboard.Tables.Add(newTable);
 
 
-            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.CompanyName == request.Company);
+            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.Company.Domain == request.CompanyDomain);
 
             return result != null ? newTable : null;
 

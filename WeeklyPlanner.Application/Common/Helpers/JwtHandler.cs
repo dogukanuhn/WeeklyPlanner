@@ -33,7 +33,7 @@ namespace WeeklyPlanner.Application.Common.Helpers
                 {
                     //İstersek string bir property istersek ClaimsTypes sınıfının sabitlerinden çağırabiliriz.
                     new Claim(JwtClaims.UserId.ToString(), user.Id.ToString()),
-                    new Claim(JwtClaims.Company.ToString(), user.Company),
+                    new Claim(JwtClaims.CompanyDomain.ToString(), user.CompanyDomain != null ? user.CompanyDomain : "" ),
                     new Claim(JwtClaims.Email.ToString(),user.Email)
                 }),
                 //Tokenın hangi tarihe kadar geçerli olacağını ayarlıyoruz.

@@ -23,9 +23,9 @@ namespace WeeklyPlanner.Application.Dashboards.Queries
         }
         public async Task<Dashboard> Handle(GetDashboardByCompanyCommand request, CancellationToken cancellationToken)
         {
-            var company = request.Company;
+     
 
-            var dashboard = await _dashboardRepository.GetAsync(x => x.CompanyName == company);
+            var dashboard = await _dashboardRepository.GetAsync(x => x.Company.Domain == request.CompanyDomain);
 
             return dashboard;
 

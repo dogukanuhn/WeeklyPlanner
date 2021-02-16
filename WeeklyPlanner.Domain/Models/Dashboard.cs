@@ -8,9 +8,9 @@ namespace WeeklyPlanner.Domain.Models
 {
     public class Dashboard : BaseModel
     {
-        public Dashboard(string cName, List<string> tables)
+        public Dashboard(Company company, List<string> tables)
         {
-            CompanyName = cName;
+            Company = company;
             Tables = new List<Table>();
 
             foreach (var item in tables)
@@ -24,8 +24,8 @@ namespace WeeklyPlanner.Domain.Models
             }
         }
 
-
-        public string CompanyName { get; set; }
+        public string Team { get; set; }
+        public Company Company { get; set; }
         public List<Table> Tables { get; set; }
 
     }
