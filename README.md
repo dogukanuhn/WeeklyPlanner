@@ -39,7 +39,7 @@ Weekly Planner is a project for practice
 | WeeklyPlanner.Domain | Entity Model, Interfaces  |
 | WeeklyPlanner.Infrastructure | Repositories, Database, Cache Handler  |
 
-#3rd Party Libraries
--Mediatr
--FluentValidation
--NETCore.MailKit
+## 3rd Party Libraries
+- Mediatr
+- FluentValidation
+- NETCore.MailKit
