@@ -28,7 +28,7 @@ namespace WeeklyPlanner.API.Controllers
         }
 
 
-        [HttpPost("/Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] CreateUserCommand command)
         {
             try
