@@ -1,6 +1,6 @@
 # Weekly Planner
 
-Weekly Planner is a project for practice
+Weekly Planner is a project for companies create one or more dashboard and follow their progress with multiple team
 
 ## Requirements
 
