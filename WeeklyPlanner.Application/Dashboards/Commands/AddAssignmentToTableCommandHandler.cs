@@ -23,7 +23,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         public async Task<Dashboard> Handle(AddAssignmentToTableCommand request, CancellationToken cancellationToken)
         {
 
-            var dashboard = await _dashboardRepository.GetAsync(x => x.Company.Name == request.CompanyDomain);
+            var dashboard = await _dashboardRepository.GetAsync(x => x.Company.Domain == request.CompanyDomain);
 
             Table table = dashboard.Tables.Single(x => x.TableName == request.TableName);
             int oldIndex = table.Assignments.FindIndex(x=> x.Title == request.Assignment.Title);

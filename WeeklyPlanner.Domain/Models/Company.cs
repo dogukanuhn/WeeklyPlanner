@@ -8,7 +8,6 @@ namespace WeeklyPlanner.Domain.Models
 {
     public class Company : BaseModel
     {
-        public string Name { get; set; }
         public string Domain { get; set; }
         public string Type { get; set; }
 

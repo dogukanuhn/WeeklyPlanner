@@ -16,14 +16,16 @@ namespace WeeklyPlanner.Application.Users.Queries
     {
         private readonly IRedisHandler _redisHandler;
         private readonly IUserRepository _userRepository;
+        private readonly IDashboardRepository _dashboardRepository;
         private readonly IJwtHandler _jwtHandler;
 
-        public AuthenticateUserQueryHandler(IJwtHandler jwtHandler, IRedisHandler redisHandler, IUserRepository userRepository)
+        public AuthenticateUserQueryHandler(IJwtHandler jwtHandler, IRedisHandler redisHandler, IUserRepository userRepository, IDashboardRepository dashboardRepository)
         {
 
             _jwtHandler = jwtHandler;
             _redisHandler = redisHandler;
             _userRepository = userRepository;
+            _dashboardRepository = dashboardRepository;
         }
 
         public async Task<Response> Handle(AuthenticateUserQuery request, CancellationToken cancellationToken)
@@ -40,10 +42,11 @@ namespace WeeklyPlanner.Application.Users.Queries
                 return null;
 
             var user = await _userRepository.GetAsync(x => x.Email == request.Email);
+            var dashboard = await _dashboardRepository.GetAsync(x => x.Company.Domain == user.CompanyDomain);
             Response response = new Response
             {
                 Token = _jwtHandler.Authenticate(user),
-                Status = string.IsNullOrEmpty(user.CompanyDomain) ? 0 : 1
+                Status = dashboard == null ? 0 : 1
             };
 
             return response;
