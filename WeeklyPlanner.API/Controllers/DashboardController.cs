@@ -51,8 +51,7 @@ namespace WeeklyPlanner.API.Controllers
                 return Ok(new DashboardResponse
                 {
                     HasError = false,
-
-                    Tables = result.Tables
+                    Boards = result
                 });
             }
             catch (Exception)
@@ -80,12 +79,7 @@ namespace WeeklyPlanner.API.Controllers
                     Error="Create Dashboard Failed"
                     });
                 }
-                return Ok(new DashboardResponse
-                {
-                    HasError = false,
-
-                    Tables = result.Tables
-                });
+                return Ok(result);
             }
             catch (Exception)
             {

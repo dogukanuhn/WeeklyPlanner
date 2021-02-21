@@ -10,6 +10,10 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
 {
     public class CreateDashboardCommand : IRequest<Dashboard>
     {
+        public CreateDashboardCommand()
+        {
+            Company = new Company();
+        }
         public Company Company { get; set; }
         public string Team { get; set; }
         public List<string> Tables { get; set; }

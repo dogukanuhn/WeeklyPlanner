@@ -11,7 +11,7 @@ using WeeklyPlanner.Domain.Repositories;
 
 namespace WeeklyPlanner.Application.Dashboards.Queries
 {
-    public class GetDashboardByCompanyHandler : IRequestHandler<GetDashboardByCompanyCommand, Dashboard>
+    public class GetDashboardByCompanyHandler : IRequestHandler<GetDashboardByCompanyCommand, List<Dashboard>>
     {
         private IDashboardRepository _dashboardRepository;
     
@@ -21,11 +21,11 @@ namespace WeeklyPlanner.Application.Dashboards.Queries
             _dashboardRepository = dashboardRepository;
    
         }
-        public async Task<Dashboard> Handle(GetDashboardByCompanyCommand request, CancellationToken cancellationToken)
+        public async Task<List<Dashboard>> Handle(GetDashboardByCompanyCommand request, CancellationToken cancellationToken)
         {
      
 
-            var dashboard = await _dashboardRepository.GetAsync(x => x.Company.Domain == request.CompanyDomain);
+            var dashboard = await _dashboardRepository.GetAllAsync(x => x.Company.Domain == request.CompanyDomain);
 
             return dashboard;
 

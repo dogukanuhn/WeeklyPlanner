@@ -8,8 +8,9 @@ namespace WeeklyPlanner.Domain.Models
 {
     public class Dashboard : BaseModel
     {
-        public Dashboard(Company company, List<string> tables)
+        public Dashboard(string team,Company company, List<string> tables)
         {
+            Team = team;
             Company = company;
             Tables = new List<Table>();
 

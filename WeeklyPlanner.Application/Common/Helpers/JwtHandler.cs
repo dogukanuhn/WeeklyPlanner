@@ -37,7 +37,7 @@ namespace WeeklyPlanner.Application.Common.Helpers
                     new Claim(JwtClaims.Email.ToString(),user.Email)
                 }),
                 //Tokenın hangi tarihe kadar geçerli olacağını ayarlıyoruz.
-                Expires = DateTime.UtcNow.AddMinutes(2),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 //Son olarak imza için gerekli algoritma ve gizli anahtar bilgisini belirliyoruz.
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

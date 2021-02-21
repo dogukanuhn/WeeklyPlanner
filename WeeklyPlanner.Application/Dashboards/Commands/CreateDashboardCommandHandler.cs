@@ -25,7 +25,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
         public async Task<Dashboard> Handle(CreateDashboardCommand request, CancellationToken cancellationToken)
         {
             
-            var createdDashboard = new Dashboard(request.Company, request.Tables);
+            var createdDashboard = new Dashboard(request.Team, request.Company, request.Tables);
 
             var result = await _dashboardRepository.AddAsync(createdDashboard, cancellationToken);
 

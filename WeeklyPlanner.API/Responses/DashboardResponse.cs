@@ -8,6 +8,6 @@ namespace WeeklyPlanner.API.Responses
 {
     public class DashboardResponse : BaseResponse
     {
-        public List<Table> Tables { get; set; }
+        public List<Dashboard> Boards { get; set; }
     }
 }
