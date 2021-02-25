@@ -31,7 +31,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
             dashboard.Tables.Insert(request.NewIndex, item);
 
 
-         
+         //TODO: check team name
             var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.Company.Domain == request.CompanyDomain);
 
             if (result == null) return false;

@@ -212,6 +212,36 @@ namespace WeeklyPlanner.API.Controllers
         //    }
         //}
 
+        [HttpPost("UpdateTables")]
+        public async Task<IActionResult> UpdateTables(UpdateTableCommand command)
+        {
+            command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
+
+            try
+            {
+                var result = await _mediator.Send(command);
+                if(!result)
+                {
+                    return BadRequest(new ErrorResponse
+                    {
+                        HasError = true,
+                        Error = "Update Failure"
+                    });
+                }
+
+                return Ok(new BaseResponse
+                {
+                    HasError = false
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
         [HttpPost("AddAssignment")]
         public async Task<IActionResult> AddAssignment(AddAssignmentToTableCommand command)
         {
