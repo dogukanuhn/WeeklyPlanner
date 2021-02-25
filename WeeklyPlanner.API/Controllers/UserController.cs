@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using System;
@@ -27,6 +27,14 @@ namespace WeeklyPlanner.API.Controllers
         }
 
 
+
+        /// <summary>
+        /// Register to Weekly Planner
+        /// </summary>
+        /// <response code="200">Account created successfully</response>
+        /// <response code="400">Error while creating account</response>          
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RegisterResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BaseResponse))]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] CreateUserCommand command)
         {
@@ -54,6 +62,13 @@ namespace WeeklyPlanner.API.Controllers
 
         }
 
+        /// <summary>
+        /// Login with email
+        /// </summary>
+        /// <response code="200">Return accessguid for authentication</response>
+        /// <response code="400">User not found or error</response>          
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [HttpGet("login")]
         public async Task<IActionResult> Login([FromQuery] LoginUserQuery query)
         {
@@ -83,6 +98,15 @@ namespace WeeklyPlanner.API.Controllers
 
         }
 
+
+
+        /// <summary>
+        /// Login access code which came from Login request
+        /// </summary>
+        /// <response code="200">Get JWT token</response>
+        /// <response code="400">Authentication error</response>          
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthenticateResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         [HttpPost("Authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticateUserQuery query)
         {
