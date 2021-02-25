@@ -34,7 +34,7 @@ namespace WeeklyPlanner.API.Controllers
             {
                 var result = await _mediator.Send(command);
                 if (result != 1)
-                    return BadRequest(new ErrorResponse
+                    return BadRequest(new BaseResponse
                     {
                     Error ="Girilen E-Posta Kullanımda ve ya Şirket Hesabı bulunmakta(Davetiye linki ile panele erişim sağlayabilirsiniz.).",
                     HasError =true

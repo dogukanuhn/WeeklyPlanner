@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace WeeklyPlanner.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IJwtHandler, JwtHandler>();
+
+
 
             services.AddSingleton<IEmailService, EmailService>();
 

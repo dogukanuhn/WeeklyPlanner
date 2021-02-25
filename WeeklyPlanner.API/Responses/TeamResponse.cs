@@ -6,8 +6,8 @@ using WeeklyPlanner.Domain.Models;
 
 namespace WeeklyPlanner.API.Responses
 {
-    public class DashboardResponse : BaseResponse
+    public class TeamResponse : BaseResponse
     {
-        public Dashboard Dashboard { get; set; }
+        public List<string> Teams { get; set; }
     }
 }

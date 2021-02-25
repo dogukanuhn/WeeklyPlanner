@@ -12,8 +12,8 @@ namespace WeeklyPlanner.Domain.Models
     {
         public BaseModel()
         {
-            if (Id == ObjectId.Empty)
-                Id = ObjectId.GenerateNewId();
+            if (_id == ObjectId.Empty)
+                _id = ObjectId.GenerateNewId();
 
             if (Created == null)
             {
@@ -25,7 +25,7 @@ namespace WeeklyPlanner.Domain.Models
 
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonId]
-        public ObjectId Id { get; set; }
+        public ObjectId _id { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]

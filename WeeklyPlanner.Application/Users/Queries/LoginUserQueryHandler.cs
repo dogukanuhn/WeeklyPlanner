@@ -1,13 +1,10 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using WeeklyPlanner.Application.Common.Interfaces;
-using WeeklyPlanner.Domain.Models;
 using WeeklyPlanner.Domain.Repositories;
 
 namespace WeeklyPlanner.Application.Users.Queries
@@ -16,9 +13,10 @@ namespace WeeklyPlanner.Application.Users.Queries
     {
         private readonly IUserRepository _userRepository;
         private readonly IRedisHandler _redisHandler;
-
-        public LoginUserQueryHandler(IUserRepository userRepository, IRedisHandler redisHandler)
+        private readonly ILogger<LoginUserQueryHandler> _logger;
+        public LoginUserQueryHandler(IUserRepository userRepository, IRedisHandler redisHandler, ILogger<LoginUserQueryHandler> logger)
         {
+            _logger = logger;
             _userRepository = userRepository;
             _redisHandler = redisHandler;
         }
@@ -45,7 +43,7 @@ namespace WeeklyPlanner.Application.Users.Queries
 
             }; 
             await _redisHandler.AddToCache($"LoginCodes:{request.Email}", TimeSpan.FromMinutes(2), JsonSerializer.Serialize(temp));
-
+            _logger.LogInformation($"access code {code}");
             return codeGuid;
         }
     }

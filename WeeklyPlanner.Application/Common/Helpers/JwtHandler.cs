@@ -32,7 +32,7 @@ namespace WeeklyPlanner.Application.Common.Helpers
                 Subject = new ClaimsIdentity(new[]
                 {
                     //İstersek string bir property istersek ClaimsTypes sınıfının sabitlerinden çağırabiliriz.
-                    new Claim(JwtClaims.UserId.ToString(), user.Id.ToString()),
+                    new Claim(JwtClaims.UserId.ToString(), user._id.ToString()),
                     new Claim(JwtClaims.CompanyDomain.ToString(), user.CompanyDomain != null ? user.CompanyDomain : "" ),
                     new Claim(JwtClaims.Email.ToString(),user.Email)
                 }),

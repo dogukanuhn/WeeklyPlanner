@@ -29,14 +29,47 @@ namespace WeeklyPlanner.API.Controllers
 
 
         // GET api/<DashboardController>/5
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("teams")]
+        public async Task<IActionResult> GetTeams()
         {
             try
             {
-                var command = new GetDashboardByCompanyCommand();
+                var command = new GetTeamsCommand();
                 command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
 
+                var result = await _mediator.Send(command);
+
+                if (result == null)
+                {
+                    return BadRequest(new ErrorResponse
+                    {
+                        HasError = true,
+                        Error = "Dasboard Not Found"
+                    });
+                }
+
+                return Ok(new TeamResponse
+                {
+                    HasError = false,
+                    Teams = result
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        // GET api/<DashboardController>/5
+        [HttpGet()]
+        public async Task<IActionResult> Get([FromQuery] string team)
+        {
+            try
+            {
+                var command = new GetDashboardByTeamCommand();
+                command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
+                command.Team = team;
                 var result = await _mediator.Send(command);
 
                 if (result == null)
@@ -51,7 +84,7 @@ namespace WeeklyPlanner.API.Controllers
                 return Ok(new DashboardResponse
                 {
                     HasError = false,
-                    Boards = result
+                    Dashboard =  result
                 });
             }
             catch (Exception)
@@ -183,7 +216,6 @@ namespace WeeklyPlanner.API.Controllers
         public async Task<IActionResult> AddAssignment(AddAssignmentToTableCommand command)
         {
 
-            command.UserId = HttpContext.User.FindFirst(JwtClaims.UserId.ToString()).Value;
             command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
             try
             {

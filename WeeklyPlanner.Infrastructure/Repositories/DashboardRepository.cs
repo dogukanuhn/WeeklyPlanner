@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace WeeklyPlanner.Infrastructure.Repositories
 
         public  async Task<Dashboard> UpdateAsync(Dashboard entity, Expression<Func<Dashboard, bool>> predicate)
         {
-            return await _collection.FindOneAndReplaceAsync(predicate, entity);
+             return await _collection.FindOneAndReplaceAsync<Dashboard>(predicate, entity);
         }
     }
 }
