@@ -9,8 +9,10 @@ using Microsoft.Extensions.Logging;
 
 namespace WeeklyPlanner.API
 {
+#pragma warning disable CS1591
     public class Program
     {
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -23,4 +25,5 @@ namespace WeeklyPlanner.API
                     webBuilder.UseStartup<Startup>();
                 });
     }
+#pragma warning restore CS1591
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -85,7 +87,8 @@ namespace WeeklyPlanner.API
             services.AddControllers();
 
             #region SWAGGER
-            services.AddSwaggerGen(c => {
+            services.AddSwaggerGen(c =>
+            {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
@@ -96,6 +99,13 @@ namespace WeeklyPlanner.API
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
+
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
       {
@@ -145,6 +155,7 @@ namespace WeeklyPlanner.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
 
             });
 

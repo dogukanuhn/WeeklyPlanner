@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,17 @@ namespace WeeklyPlanner.API.Controllers
 
 
 
-        // GET api/<DashboardController>/5
+        /// <summary>
+        /// Get all teams for Company
+        /// </summary>
+        /// <response code="200">Gives all teams</response>
+        /// <response code="404">Teams not found</response>    
+        /// <response code="401">Unauthorized</response>          
+        /// 
         [HttpGet("teams")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TeamResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound,Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetTeams()
         {
             try
@@ -41,7 +51,7 @@ namespace WeeklyPlanner.API.Controllers
 
                 if (result == null)
                 {
-                    return BadRequest(new ErrorResponse
+                    return NotFound(new ErrorResponse
                     {
                         HasError = true,
                         Error = "Dasboard Not Found"
@@ -61,7 +71,15 @@ namespace WeeklyPlanner.API.Controllers
             }
         }
 
-        // GET api/<DashboardController>/5
+        /// <summary>
+        /// Get all dashboard by for a certain team
+        /// </summary>
+        /// <response code="200">Gives a dashboard for selected team</response>
+        /// <response code="404">If dashboard not found for selected team</response>          
+        /// <response code="401">Unauthorized</response>          
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DashboardResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet()]
         public async Task<IActionResult> Get([FromQuery] string team)
         {
@@ -96,7 +114,15 @@ namespace WeeklyPlanner.API.Controllers
 
 
 
-        // POST api/<DashboardController>
+        /// <summary>
+        /// Get team name and create dashboard
+        /// </summary>
+        /// <response code="200">Created successfully</response>
+        /// <response code="404">Error while creating dashboard</response>          
+        /// <response code="401">Unauthorized</response>          
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Dashboard))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost]
         public async Task<IActionResult> CreateDashboard([FromBody] CreateDashboardCommand command)
         {
@@ -121,8 +147,17 @@ namespace WeeklyPlanner.API.Controllers
             }
         }
 
-            
-        [HttpPost("createTable")]
+
+        /// <summary>
+        /// Create table for team
+        /// </summary>
+        /// <response code="200">Created successfully</response>
+        /// <response code="404">Error while creating table</response>          
+        /// <response code="401">Unauthorized</response>         
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddTableResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpPost("CreateTable")]
         public async Task<IActionResult> CreateTable([FromBody] CreateTableCommand command)
         {
             try
@@ -152,6 +187,15 @@ namespace WeeklyPlanner.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update Table Order
+        /// </summary>
+        /// <response code="200">Created successfully</response>
+        /// <response code="404">Error while updating table</response>          
+        /// <response code="401">Unauthorized</response>         
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("UpdateTableOrder")]
         public async Task<IActionResult> UpdateTableOrder([FromBody] UpdateTableOrderCommand command)
         {
@@ -168,10 +212,9 @@ namespace WeeklyPlanner.API.Controllers
                         Error = "Fail to update table order"
                     });
                 }
-                return Ok(new AddAssignmentResponse
+                return Ok(new BaseResponse
                 {
-                    HasError = false,
-        
+                    HasError = false
 
                 });
 
@@ -212,6 +255,16 @@ namespace WeeklyPlanner.API.Controllers
         //    }
         //}
 
+
+        /// <summary>
+        /// Update Tables when assignment position changed
+        /// </summary>
+        /// <response code="200">Updated successfully</response>
+        /// <response code="404">Error while changing position</response>          
+        /// <response code="401">Unauthorized</response>         
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost("UpdateTables")]
         public async Task<IActionResult> UpdateTables(UpdateTableCommand command)
         {
@@ -242,6 +295,16 @@ namespace WeeklyPlanner.API.Controllers
         }
 
 
+
+        /// <summary>
+        /// Add assignment for certain tablle
+        /// </summary>
+        /// <response code="200">Added successfully</response>
+        /// <response code="404">Error while creating assignment</response>          
+        /// <response code="401">Unauthorized</response>         
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddAssignmentResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost("AddAssignment")]
         public async Task<IActionResult> AddAssignment(AddAssignmentToTableCommand command)
         {
