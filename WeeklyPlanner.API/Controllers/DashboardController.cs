@@ -335,6 +335,84 @@ namespace WeeklyPlanner.API.Controllers
             }
         }
 
-        
+
+        /// <summary>
+        /// Delete assignments by table
+        /// </summary>
+        /// <response code="200">Removed successfully</response>
+        /// <response code="400">Error while removing assignment</response>          
+        /// <response code="401">Unauthorized</response>         
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpPost("DeleteAssignment")]
+        public async Task<IActionResult> DeleteAssignment(DeleteAssignmentsForTableCommand command)
+        {
+
+            command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
+            try
+            {
+                var result = await _mediator.Send(command);
+                if (!result)
+                {
+                    return BadRequest(new ErrorResponse
+                    {
+                        HasError = true,
+                        Error = "Remove Assignment Failure"
+                    });
+                }
+                return Ok(new BaseResponse
+                {
+                    HasError = false
+
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Delete table for certain team
+        /// </summary>
+        /// <response code="200">Removed successfully</response>
+        /// <response code="400">Error while removing table</response>          
+        /// <response code="401">Unauthorized</response>         
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpPost("DeleteTable")]
+        public async Task<IActionResult> DeleteTable(DeleteTableFromTableCommand command)
+        {
+
+            command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
+            try
+            {
+                var result = await _mediator.Send(command);
+                if (!result)
+                {
+                    return BadRequest(new ErrorResponse
+                    {
+                        HasError = true,
+                        Error = "Remove Table Failure"
+                    });
+                }
+                return Ok(new BaseResponse
+                {
+                    HasError = false
+
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
     }
 }

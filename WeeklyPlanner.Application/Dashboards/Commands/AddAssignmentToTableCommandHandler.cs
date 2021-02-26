@@ -46,7 +46,7 @@ namespace WeeklyPlanner.Application.Dashboards.Commands
 
 
 
-            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.Company.Domain == request.CompanyDomain);
+            var result = await _dashboardRepository.UpdateAsync(dashboard, x => x.Company.Domain == request.CompanyDomain && x.Team == request.Team);
 
             return result;
         }
