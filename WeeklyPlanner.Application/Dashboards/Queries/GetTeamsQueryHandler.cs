@@ -11,17 +11,17 @@ using WeeklyPlanner.Domain.Repositories;
 
 namespace WeeklyPlanner.Application.Dashboards.Queries
 {
-    public class GetTeamsHandler : IRequestHandler<GetTeamsCommand, List<string>>
+    public class GetTeamsQueryHandler : IRequestHandler<GetTeamsQuery, List<string>>
     {
         private IDashboardRepository _dashboardRepository;
     
 
-        public GetTeamsHandler(IDashboardRepository dashboardRepository)
+        public GetTeamsQueryHandler(IDashboardRepository dashboardRepository)
         {
             _dashboardRepository = dashboardRepository;
    
         }
-        public async Task<List<string>> Handle(GetTeamsCommand request, CancellationToken cancellationToken)
+        public async Task<List<string>> Handle(GetTeamsQuery request, CancellationToken cancellationToken)
         {
      
 

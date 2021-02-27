@@ -44,7 +44,7 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
-                var command = new GetTeamsCommand();
+                var command = new GetTeamsQuery();
                 command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
 
                 var result = await _mediator.Send(command);
@@ -85,7 +85,7 @@ namespace WeeklyPlanner.API.Controllers
         {
             try
             {
-                var command = new GetDashboardByTeamCommand();
+                var command = new GetDashboardByTeamQuery();
                 command.CompanyDomain = HttpContext.User.FindFirst(JwtClaims.CompanyDomain.ToString()).Value;
                 command.Team = team;
                 var result = await _mediator.Send(command);

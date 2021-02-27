@@ -21,11 +21,6 @@ namespace WeeklyPlanner.Infrastructure
 
         public async Task<string> GetFromCache(string key)
         {
-            var isCached = await IsCached(key);
-            if (!isCached)
-            {
-                return null;
-            }
 
             var cachedData = await _distributedCache.GetStringAsync(key);
             return await Task.FromResult(cachedData);
@@ -34,8 +29,8 @@ namespace WeeklyPlanner.Infrastructure
 
         public async Task<bool> AddToCache(string key, TimeSpan timeout, string data)
         {
-            bool isCached = await IsCached(key);
-            if (isCached)
+            var isCached = await GetFromCache(key);
+            if (isCached != null)
             {
                 return await Task.FromResult(false);
             }
@@ -48,11 +43,6 @@ namespace WeeklyPlanner.Infrastructure
         }
 
 
-        private async Task<bool> IsCached(string key)
-        {
-            var cachedData = await _distributedCache.GetStringAsync(key);
-
-            return string.IsNullOrEmpty(cachedData) ? await Task.FromResult(false) : await Task.FromResult(true);
-        }
+      
     }
 }

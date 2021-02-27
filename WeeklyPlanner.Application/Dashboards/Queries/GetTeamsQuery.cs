@@ -8,10 +8,8 @@ using WeeklyPlanner.Domain.Models;
 
 namespace WeeklyPlanner.Application.Dashboards.Queries
 {
-    public class GetDashboardByTeamCommand : IRequest<Dashboard>
+    public class GetTeamsQuery : IRequest<List<string>>
     {
         public string CompanyDomain { get; set; }
-        public string Team { get; set; }
-
     }
 }
